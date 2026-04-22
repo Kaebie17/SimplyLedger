@@ -1192,16 +1192,19 @@ function downloadFile(){
     let data = "date\tcategory\ttotal\titem\tquantity\tsub-category\tstore\tamount";
     let promise = findEntry(db,"expenseDB","timestamp");
     promise.onsuccess = (e) => {
+        // debugger
         let allData = e.target.result;
         let dbString = data; 
         for (let entry of allData){
             let {timestamp, category, value:total, detail} = entry ;
-            if (!detail.length){
+            if (!detail?.length){
                 dbString += `\n${new Date(timestamp)}\t${category}\t${total}\t\t\t\t\t`
             }
-            for (let line of detail){
-                let {name,value,quantity,subCategory,storeName} = line; 
-                dbString += `\n${new Date(timestamp)}\t${category}\t${total}\t${name}\t${quantity}\t${subCategory}\t${storeName}\t${value}`
+            else{
+                for (let line of detail){
+                    let {name,value,quantity,subCategory,storeName} = line; 
+                    dbString += `\n${new Date(timestamp)}\t${category}\t${total}\t${name}\t${quantity}\t${subCategory}\t${storeName}\t${value}`
+                }
             }
         }
         let blob = new Blob([dbString], {type: "text/plain"});

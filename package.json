@@ -1,0 +1,27 @@
+{
+  "name": "trackyourexpenses(aayvyay-app)",
+  "version": "1.0.0",
+  "description": "",
+  "main": "chat.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kaebie17/SimplyLedger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kaebie17/SimplyLedger/issues"
+  },
+  "homepage": "https://github.com/Kaebie17/SimplyLedger#readme",
+  "devDependencies": {
+    "vite": "^7.3.2",
+    "vite-plugin-pwa": "^1.2.0"
+  }
+}
