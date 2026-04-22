@@ -1,3 +1,8 @@
+.body{
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom); 
+}
+
 .gridmembercss{
     grid-area: 1/1/1/1;
 }
@@ -33,10 +38,6 @@
 @media (height < 600px) {  
   :root{
     font-size: 10px;
-  }
-  .grid{
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom); 
   }
 }
 
