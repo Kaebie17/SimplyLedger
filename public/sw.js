@@ -1,4 +1,4 @@
-const CACHE = 'simplyledger-v1';
+const CACHE = 'simplyledger-v1.1';
 
 self.addEventListener('install', event => {
   event.waitUntil(
