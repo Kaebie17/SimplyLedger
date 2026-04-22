@@ -167,16 +167,16 @@ function createCalendar(d){
             snapshotDisplay(clone,expVal);
             findRange(db,"expenseDB","timestamp",function(entry){hasEntry(clone,entry)},"",clone.id);
             frag.append(clone);
-            let len =  calendarElem.getBoundingClientRect().height
-            dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - footer.getBoundingClientRect().height - len - header.nextElementSibling.getBoundingClientRect().height+ "px";
+            // let len =  calendarElem.getBoundingClientRect().height
+            // dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - footer.getBoundingClientRect().height - len - header.nextElementSibling.getBoundingClientRect().height+ "px";
         }
         calendarBody.append(frag);
         calendarSuperArea.append(left,calendarBody,right);
         calendarElem.append(calendarSuperArea);
         dynamicDisplayArea.classList.contains("hidden")? "" : (changeView(),dynamicDisplayArea.classList.toggle("hidden"));
         if (!dynamicDisplayArea.classList.contains("hidden")){
-            let len =  calendarElem.getBoundingClientRect().height;
-            dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px";
+            // let len =  calendarElem.getBoundingClientRect().height;
+            // dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px";
         }
     }
 }
@@ -205,10 +205,10 @@ function changeView(e){
     })
     dynamicDisplayArea.classList.toggle("hidden");
     if (!dynamicDisplayArea.classList.contains("hidden")){
-        setTimeout(() => {
-            let len =  calendarElem.getBoundingClientRect().height;
-            dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px"
-        },10)
+        // setTimeout(() => {
+        //     let len =  calendarElem.getBoundingClientRect().height;
+        //     dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px"
+        // },10)
     }
 }
 

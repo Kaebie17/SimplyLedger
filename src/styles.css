@@ -1,16 +1,19 @@
-.body{
+html{
+  height: 100lvh !important;
+}
+body{
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom); 
+  height: 100lvh !important;
 }
-
+.grid {
+    flex-grow: 1;
+}
 .gridmembercss{
     grid-area: 1/1/1/1;
 }
 .noborder{
   border: none;
-}
-.invisible{
-  visibility: hidden;
 }
 ::placeholder{
     letter-spacing: normal;
@@ -29,9 +32,6 @@
 @media (width > 600px) {  
   :root{
     font-size: 27px;
-  }
-  .grid:nth-child(n){
-    height: 50% ;
   }
 }
 
@@ -89,3 +89,7 @@ animation-timing-function: ease-in-out;
     opacity: 1;
   }
 }
+
+/* html { background: red !important; height: 100dvh !important; }
+body { background: blue !important; height: 100dvh !important; margin: 0 !important; }
+.grid { background: green !important; height: 100% !important; } */

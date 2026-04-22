@@ -15,7 +15,7 @@
     <title>Document</title>
 </head>
 
-<body class="font-serif h-dvh overflow-hidden">
+<body class="font-serif flex flex-col h-dvh overflow-hidden">
     <header id="header" class="box-border flex shrink-0 items-center w-screen h-12 px-2 bg-black/75">
         <div class="box-border size-fit flex"><img src="public/Designer.png" alt="logo" class="w-12 h-10 rounded-full"></div>
         <div class="flex flex-auto h-full"><span
@@ -37,12 +37,12 @@
     </header>
     <hr class="h-1 bg-black" />
     <div class="grid grow-1">
-        <section id="calendar" class="gridmembercss">
-            <div id="datesarea" class="bg-linear-30 from-teal-200 to-yellow-300">
+        <section id="calendar" class="gridmembercss h-100%">
+            <div id="datesarea" class="grow-1 bg-linear-30 from-teal-200 to-yellow-300">
                 <!-- fill dates using js -->
             </div>
             <hr class="h-1 bg-black" />
-            <div id="dynamicsec" class="grid overflow-y-auto hidden">
+            <div id="dynamicsec" class="grid overflow-y-auto grow-1 hidden">
                 <output id="output"
                     class="gridmembercss flex flex-col justify-center gap-2 h-full px-5 py-2 bg-teal-200 hidden">
                     <h1 id="outputtitle" class="text-center mb-4 text-xl font-black tracking-wider">Day's Status</h1>
