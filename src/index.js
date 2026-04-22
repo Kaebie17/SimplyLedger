@@ -48,6 +48,7 @@ let categoryDatePlotData = {};
 let subcategoryDatePlotData = {};
 let valuesPlotData = {};
 let scale;
+const resizeFunc = () => contentArea.style.height = screen.height - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height - footer.getBoundingClientRect().height + "px" ;
 
 const size = (o) => o? Object.keys(o).length : "";
 
@@ -79,7 +80,15 @@ String.prototype.wordAt = function(num){return this.split(" ")[num]}
 let db = null;
 createIndexedDB("ledgerDB",1,{"expenseDB":{timestamp:"timestamp",category:"category"}},{"incomeDB":{timestamp:"timestamp",source:"category"}})
 // Dynamically size the content area
-contentArea.style.height = screen.height - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height - footer.getBoundingClientRect().height + "px" ;
+window.addEventListener('DOMContentLoaded', resizeFunc);
+let timeout;
+window.addEventListener('resize', () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+        resizeFunc()
+        console.log('Adjustment logic triggered');
+    }, 250); // Wait for 250ms of no resizing
+})
 
 // document.body.addEventListener("resize", ()=>{debugger;document.location = "index.html"})
 expenseBtn.addEventListener("touchstart",submitBtnClick);

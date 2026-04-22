@@ -22,6 +22,9 @@
   :root{
     font-size: 27px;
   }
+  .grid:nth-child(n){
+    height: 50% ;
+  }
 }
 
 @media (height < 600px) {  
