@@ -48,7 +48,7 @@ let categoryDatePlotData = {};
 let subcategoryDatePlotData = {};
 let valuesPlotData = {};
 let scale;
-const resizeFunc = () => contentArea.style.height = screen.height - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height - footer.getBoundingClientRect().height + "px" ;
+const resizeFunc = () => contentArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height - footer.getBoundingClientRect().height  + "px" ;
 
 const size = (o) => o? Object.keys(o).length : "";
 
@@ -80,7 +80,7 @@ String.prototype.wordAt = function(num){return this.split(" ")[num]}
 let db = null;
 createIndexedDB("ledgerDB",1,{"expenseDB":{timestamp:"timestamp",category:"category"}},{"incomeDB":{timestamp:"timestamp",source:"category"}})
 // Dynamically size the content area
-window.addEventListener('DOMContentLoaded', resizeFunc);
+resizeFunc();
 let timeout;
 window.addEventListener('resize', () => {
     clearTimeout(timeout);
@@ -168,7 +168,7 @@ function createCalendar(d){
             findRange(db,"expenseDB","timestamp",function(entry){hasEntry(clone,entry)},"",clone.id);
             frag.append(clone);
             let len =  calendarElem.getBoundingClientRect().height
-            dynamicDisplayArea.style.height = screen.height - header.getBoundingClientRect().height - footer.getBoundingClientRect().height - len - header.nextElementSibling.getBoundingClientRect().height+ "px";
+            dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - footer.getBoundingClientRect().height - len - header.nextElementSibling.getBoundingClientRect().height+ "px";
         }
         calendarBody.append(frag);
         calendarSuperArea.append(left,calendarBody,right);
@@ -176,7 +176,7 @@ function createCalendar(d){
         dynamicDisplayArea.classList.contains("hidden")? "" : (changeView(),dynamicDisplayArea.classList.toggle("hidden"));
         if (!dynamicDisplayArea.classList.contains("hidden")){
             let len =  calendarElem.getBoundingClientRect().height;
-            dynamicDisplayArea.style.height = screen.height - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px";
+            dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px";
         }
     }
 }
@@ -207,7 +207,7 @@ function changeView(e){
     if (!dynamicDisplayArea.classList.contains("hidden")){
         setTimeout(() => {
             let len =  calendarElem.getBoundingClientRect().height;
-            dynamicDisplayArea.style.height = screen.height - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px"
+            dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px"
         },10)
     }
 }

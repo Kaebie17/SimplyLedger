@@ -4,6 +4,9 @@
 .noborder{
   border: none;
 }
+.invisible{
+  visibility: hidden;
+}
 ::placeholder{
     letter-spacing: normal;
     font-size: 0.5rem;
@@ -30,6 +33,10 @@
 @media (height < 600px) {  
   :root{
     font-size: 10px;
+  }
+  .grid{
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom); 
   }
 }
 
