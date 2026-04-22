@@ -1,10 +1,6 @@
-html{
-  height: 100lvh !important;
-}
 body{
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom); 
-  height: 100lvh !important;
 }
 .grid {
     flex-grow: 1;
