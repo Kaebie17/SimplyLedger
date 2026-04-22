@@ -1321,7 +1321,7 @@ function createIndexedDB(dbname,version,...stores){
 
 // Creates a new transaction.
 function makeTransac(db,storename,mode){
-    tx = db.transaction(storename,mode);
+    let tx = db.transaction(storename,mode);
     tx.onerror = console.error;
     return tx;
 }
