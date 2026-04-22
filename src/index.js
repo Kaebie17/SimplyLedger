@@ -147,9 +147,9 @@ function createCalendar(d){
         const calendarSuperArea = document.createElement("div");
         calendarSuperArea.className = "flex h-[95%]"
         const calendarBody = document.createElement("div");
-        calendarBody.className = "box-border flex justify-between gap-1 flex-wrap p-2 overflow-auto"
+        calendarBody.className = "box-border grid grid-cols-3 w-full py-3 px-1 overflow-auto"
         const dateBody = document.createElement("button");
-        dateBody.className = "box-border pl-2 pr-1 pt-[0.5vh] text-left text-base/5 text-[1.5rem] whitespace-pre h-15 min-w-10 flex justify-between flex-auto basis-1/4 border-1 bg-white focus:outline-2";
+        dateBody.className = "_outercal box-border pl-2 pr-1 pt-[0.5vh] text-left text-base/5 text-[1.5rem] whitespace-pre h-15 min-w-10 flex justify-between flex-auto basis-1/4 border-1 bg-white focus:outline-2";
         const frag = document.createDocumentFragment();
         let len = _date.getMonth()+1 === new Date(new Date(_date).getTime()+(31-new Date(_date).getDate())*24*60*60*1000).getMonth()+1 ? 31 : 30;
         let startDate = new Date(`${_date.getMonth()+1}/01/${_date.getFullYear()}`)  ;
@@ -186,17 +186,22 @@ function changeView(e){
     calendarElem.classList.toggle("h-full");
     let dateBoxes = Array.from(calendarElem.children[1].children[1].children);
     calendarElem.children[1].classList.toggle("h-[95%]");
-    calendarElem.children[1].children[1].classList.toggle("overflow-auto")    
+    calendarElem.children[1].children[1].classList.toggle("overflow-auto");
+    calendarElem.children[1].children[1].classList.toggle("grid-cols-4") ;
+    calendarElem.children[1].children[1].classList.toggle("h-full") ;
+    // calendarElem.children[1].children[1].classList.toggle("w-full") ;
     dateBoxes.forEach((el,i) => {
-        i<=29 ? el.classList.toggle("basis-1/4") : el.classList.toggle("basis-1/3");
-        i<=29 ? el.classList.toggle("flex-auto") : "";
-        el.classList.toggle("basis-1/7");
-        el.classList.toggle("text-base/5");
-        el.classList.toggle("text-base/4");
-        el.classList.toggle("text-[1.5rem]");
-        el.classList.toggle("h-10");
-        el.classList.toggle("h-15");
-        el.classList.toggle("text-left");
+        !el.classList.contains("_outercal") ? el.className = "_outercal box-border pl-2 pr-1 pt-[0.5vh] text-left text-base/5 text-[1.5rem] whitespace-pre h-15 min-w-10 flex justify-between flex-auto basis-1/4 border-1 bg-white focus:outline-2"
+                : el.className = "flex items-center justify-center box-border p-1 text-base/5 text-[1.25rem] whitespace-pre min-w-10 border-1 bg-white focus:outline-2"
+        // i<=29 ? el.classList.toggle("basis-1/4") : el.classList.toggle("basis-1/3");
+        // i<=29 ? el.classList.toggle("flex-auto") : "";
+        // el.classList.toggle("basis-1/7");
+        // el.classList.toggle("text-base/5");
+        // el.classList.toggle("text-base/4");
+        // el.classList.toggle("text-[1.5rem]");
+        // // el.classList.toggle("h-10");
+        // // el.classList.toggle("h-15");
+        // el.classList.toggle("text-left");
         if (!calendarElem.classList.contains("h-full")) el.lastChild.classList.add("hidden") ;
         else  {
             el.lastChild.classList.remove("hidden")
