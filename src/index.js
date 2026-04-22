@@ -145,7 +145,7 @@ function createCalendar(d){
         let len = _date.getMonth()+1 === new Date(new Date(_date).getTime()+(31-new Date(_date).getDate())*24*60*60*1000).getMonth()+1 ? 31 : 30;
         let startDate = new Date(`${_date.getMonth()+1}/01/${_date.getFullYear()}`)  ;
         let n = startDate.getDay();
-        for (i=1;i<=len;i++){
+        for (let i=1;i<=len;i++){
             let clone = dateBody.cloneNode(true);
             n = n > 6 ? 0 : n;
             clone.textContent = `${dayNames[n++]}\n${i}`;
