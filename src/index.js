@@ -1308,7 +1308,7 @@ function createIndexedDB(dbname,version,...stores){
                 let dbChild = Object.keys(store)[0];
                 let indexObject = Object.values(store)[0];
                 let indexKeys = Object.keys(indexObject);
-                indexes = Object.values(indexObject);
+                let indexes = Object.values(indexObject);
                 objectStore = db.createObjectStore(dbChild,{keyPath:[indexes[0],indexes[1]]});
                 for(let i=0; i<indexKeys.length; i++){
                     objectStore.createIndex(indexKeys[i],indexes[i],{unique: false});
