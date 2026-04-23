@@ -1,4 +1,4 @@
-// import { expenses } from "./expenseInput.js"
+import {createChart, pieChart, createStackedChart} from "./svg.js"
 let contentArea = document.getElementById("calendar");
 let header = document.getElementById("header");
 let footer = document.getElementById("footer");
@@ -48,7 +48,7 @@ let categoryDatePlotData = {};
 let subcategoryDatePlotData = {};
 let valuesPlotData = {};
 let scale;
-// const resizeFunc = () => contentArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height - footer.getBoundingClientRect().height  + "px" ;
+let plotHeight = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height - footer.getBoundingClientRect().height - 25 + "px" ;
 
 const size = (o) => o? Object.keys(o).length : "";
 
@@ -544,10 +544,10 @@ function showPlotFunction(e,period,baseDt=new Date()){
     if(baseDt > new Date()) return;
     let id = e.target.id; 
     if (e.target.localName === "path") id = e.target.parentElement.id;  
-    if (id === "showplots") plotsArea.classList.toggle("hidden");
+    if (id === "showplots") plotsArea.parentElement.classList.toggle("hidden");
     !historyArea.classList.contains("hidden") ? historyArea.classList.toggle("hidden") : "";
-    !plotsArea.classList.contains(`h-[${contentArea.style.height}]`) ? plotsArea.classList.toggle(`h-[${contentArea.style.height}]`) : "";
-    if (plotsArea.classList.contains("hidden")) {
+    !plotsArea.classList.contains(`h-[${plotHeight}]`) ? plotsArea.classList.toggle(`h-[${plotHeight}]`) : "";
+    if (plotsArea.parentElement.classList.contains("hidden")) {
             plotContainers.forEach(el => el.replaceChildren());
             incomeByDate = {};
             categoryPlotData = {};
@@ -639,8 +639,8 @@ function getDateFromWeek(week,num){
     let firstWeekStartDate = new Date(`01/${firstdayofWeek}/${yr}`);
     // let gap = (firstWeekStartDate.getTime() - firstDate.getTime())/(24*60*60*1000) ;
     let daysToTargetDate = mt*7;
-    targetWeekStart = new Date(firstWeekStartDate.getTime() + daysToTargetDate*24*60*60*1000 - gap*24*60*60*1000) // : new Date(firstWeekStartDate.getTime() + (daysToTargetDate-1)*24*60*60*1000) ;
-    targetWeekEnd =  new Date(targetWeekStart.getTime() + 6*24*60*60*1000) //: new Date(targetWeekStart.getTime() - 6*24*60*60*1000) ;
+    let targetWeekStart = new Date(firstWeekStartDate.getTime() + daysToTargetDate*24*60*60*1000 - gap*24*60*60*1000) // : new Date(firstWeekStartDate.getTime() + (daysToTargetDate-1)*24*60*60*1000) ;
+    let targetWeekEnd =  new Date(targetWeekStart.getTime() + 6*24*60*60*1000) //: new Date(targetWeekStart.getTime() - 6*24*60*60*1000) ;
     return [Math.min(targetWeekStart,targetWeekEnd),Math.max(targetWeekStart,targetWeekEnd)];
     if (mt === secondWeek) {return new Date(nextWeekStart.getTime()+(num??6)*24*60*60*1000)}
     else if (mt < secondWeek) {return new Date(nextWeekStart.getTime()-(num??1)*24*60*60*1000)}
@@ -934,7 +934,7 @@ function swipeChart(z){
 // Toggle to/from history section. Displays years for which data is available in DB. Selection to be made from UI, triggering event handled by this function. 
 function showHistoryFunction(e){
     historyArea.classList.toggle("hidden");
-    !plotsArea.classList.contains("hidden") ? plotsArea.classList.toggle("hidden") : "";
+    !plotsArea.parentElement.classList.contains("hidden") ? plotsArea.parentElement.classList.toggle("hidden") : "";
     
     let container = document.getElementById("historycontainer");
     let filterVal = document.getElementById("chooseyear");
@@ -1441,7 +1441,7 @@ function findRange(db,storename,iden,callback,start,end){
 // Checks presence of entries in the DB before executing add command of IndexedDB. Calls grouping functions to club entries having common characteristics. 
 function verifyAdd(dbEntries,entry,objectStore){
     dbEntries.onsuccess = (event) => {
-        pastEntries = event.target.result ;
+        let pastEntries = event.target.result ;
        if (!pastEntries.length){
             let details = entry.detail;
             details = details ? combineCommon(details) : [];

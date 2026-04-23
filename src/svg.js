@@ -1,4 +1,4 @@
-function createChart(context,{x=0,y=0,w=10,h=10,d=0},{xAxisLabels=false,yAxisLabels=[],legend=[],callback,values=[],scale},...options){
+export function createChart(context,{x=0,y=0,w=10,h=10,d=0},{xAxisLabels=false,yAxisLabels=[],legend=[],callback,values=[],scale},...options){
     let amountsArr = Object.values(values);
     let dates = Object.keys(values).unique();
     amountsArr = amountsArr.map(e => e/(scale));
@@ -30,7 +30,7 @@ function lineChart(context,x,y,d,values,...options){
     context.stroke();
 }
 
-function pieChart(context,x,y,r,sd,ed,dir,{values,legend},...options){
+export function pieChart(context,x,y,r,sd,ed,dir,{values,legend},...options){
     values = Object.fromEntries(Object.entries(values).sort(([k1,v1],[k2,v2])=>v2-v1));
     let amounts = Object.values(values).map((e,i,arr) => (360*((e*100/arr.reduce((a,b)=>a+b))/100)).toFixed(2)*1);
     let names = Object.keys(values);
@@ -45,7 +45,7 @@ function pieChart(context,x,y,r,sd,ed,dir,{values,legend},...options){
     legend ? legend(legendEl) : ""; 
 }
 
-function createStackedChart(context,{x=0,y=0,w=10,d=0,h=0},{xAxisLabels=[],yAxisLabels=[],legend,values=[]}){
+export function createStackedChart(context,{x=0,y=0,w=10,d=0,h=0},{xAxisLabels=[],yAxisLabels=[],legend,values=[]}){
     let stackedPlotSubcatInput = Object.values(values).map((obj) => Object.entries(obj)).sort(arr => arr.sort((arr1,arr2)=>arr2[1]-arr1[1]));
     let dates = Object.keys(values).unique();
     let numbers = stackedPlotSubcatInput.map(arr => arr.map(ar => ar[1])) ;
@@ -89,7 +89,7 @@ function stackedbar(j=0,context,{x=0,y=0,w=0,d=0,h=[]},options,{xlabels,yLabels}
     // singlebar(context,{x:x+a,y:y+b,w,h:c},[options[0]]);
 }
 
-function pieChunk(context,x,y,r,sd,ed,dir,options){
+export function pieChunk(context,x,y,r,sd,ed,dir,options){
     if(options.every(e=> e.toString()?.split(" ")?.[1]?.replace("]","") === "Object"))
     {
         options.forEach(opt => {
@@ -145,7 +145,7 @@ function createLegend(colors,names,{label=[],span=[],box=[]}){
     return legendBox;
 }
 
-function createElement(name,classlist,properties){
+function createElement(name,classlist,...properties){
     let el = document.createElement(name);
     Array.isArray(classlist) ? el.classList = classlist : "";
     for (let property of properties){

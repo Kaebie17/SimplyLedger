@@ -138,18 +138,20 @@
             </dialog>
 
         </section>
-        <section id="plots" class="gridmembercss w-full bg-white overflow-y-auto hidden">
+        <section class="gridmembercss flex flex-col min-h-0 hidden">
+        <div id="plots" class="flex-grow min-h-0 overflow-y-auto">
             <div class="grid bg-black/75"></div>
             <div class="grid bg-black/75"></div>
             <div class="grid bg-black/75"></div>
             <div class="grid bg-black/75"></div>
             <div class="grid bg-black/75"></div>
-            <div id="controlzoom" class="w-full flex justify-center bg-black/75">
+            <div id="controlzoom" class="w-full flex justify-center bg-black/75 h-[25px] shrink-0">
                 <p id="collapse" data-value="-1"
                     class="mb-1 mr-2 box-border flex justify-center items-center size-5 border-1 text-white">+</p>
                 <p id="expand" data-value="1"
                     class="mb-1 box-border flex justify-center items-center size-5 border-1 text-white">-</p>
             </div>
+        </div>
         </section>
         <section id="history" class="gridmembercss flex flex-col items-center w-full bg-white hidden">
             <div class="flex gap-1">

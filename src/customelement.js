@@ -1,4 +1,4 @@
-class SearchBox extends HTMLElement{
+export class SearchBox extends HTMLElement{
     constructor(){
         super()
 
