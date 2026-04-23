@@ -137,7 +137,7 @@ function createCalendar(d){
         calendarElem.append(label);
         calendarElem.classList.add("h-full");
         const scrollBtn = document.createElement("p");
-        scrollBtn.className = "flex h-[inherit] items-center bg-black-100";
+        scrollBtn.className = "flex h-[inherit] items-center bg-black-100 shadow-md shadow-black active:shadow-none";
         let left = scrollBtn.cloneNode("true");
         let right = scrollBtn.cloneNode("true");
         left.addEventListener("touchend",scrollMonth,{once:true});
@@ -149,7 +149,7 @@ function createCalendar(d){
         const calendarBody = document.createElement("div");
         calendarBody.className = "box-border grid grid-cols-3 w-full py-3 px-1 overflow-auto"
         const dateBody = document.createElement("button");
-        dateBody.className = "_outercal box-border pl-2 pr-1 pt-[0.5vh] text-left text-base/5 text-[1.5rem] whitespace-pre h-15 min-w-10 flex justify-between flex-auto basis-1/4 border-1 bg-white focus:outline-2";
+        dateBody.className = "_outercal box-border px-2 pr-1 pt-[0.5vh] text-left text-base/5 text-[1.5rem] whitespace-pre h-15 min-w-10 flex justify-between flex-auto basis-1/4 border-1 bg-white focus:outline-2";
         const frag = document.createDocumentFragment();
         let len = _date.getMonth()+1 === new Date(new Date(_date).getTime()+(31-new Date(_date).getDate())*24*60*60*1000).getMonth()+1 ? 31 : 30;
         let startDate = new Date(`${_date.getMonth()+1}/01/${_date.getFullYear()}`)  ;
@@ -191,17 +191,10 @@ function changeView(e){
     calendarElem.children[1].children[1].classList.toggle("h-full") ;
     // calendarElem.children[1].children[1].classList.toggle("w-full") ;
     dateBoxes.forEach((el,i) => {
-        !el.classList.contains("_outercal") ? el.className = "_outercal box-border pl-2 pr-1 pt-[0.5vh] text-left text-base/5 text-[1.5rem] whitespace-pre h-15 min-w-10 flex justify-between flex-auto basis-1/4 border-1 bg-white focus:outline-2"
-                : el.className = "flex items-center justify-center box-border p-1 text-base/5 text-[1.25rem] whitespace-pre min-w-10 border-1 bg-white focus:outline-2"
-        // i<=29 ? el.classList.toggle("basis-1/4") : el.classList.toggle("basis-1/3");
-        // i<=29 ? el.classList.toggle("flex-auto") : "";
-        // el.classList.toggle("basis-1/7");
-        // el.classList.toggle("text-base/5");
-        // el.classList.toggle("text-base/4");
-        // el.classList.toggle("text-[1.5rem]");
-        // // el.classList.toggle("h-10");
-        // // el.classList.toggle("h-15");
-        // el.classList.toggle("text-left");
+        let color = !el.classList.contains("bg-white") ? "bg-red-200" : "bg-white";
+        !el.classList.contains("_outercal") ? el.className = "_outercal box-border pl-2 pr-1 pt-[0.5vh] text-left text-base/5 text-[1.5rem] whitespace-pre h-15 min-w-10 flex justify-between flex-auto basis-1/4 border-1 focus:outline-2"
+                : el.className = "flex items-center justify-center box-border p-1 text-base/5 text-[1.25rem] whitespace-pre min-w-10 border-1 focus:outline-2" ;
+        el.classList.add(color);
         if (!calendarElem.classList.contains("h-full")) el.lastChild.classList.add("hidden") ;
         else  {
             el.lastChild.classList.remove("hidden")
@@ -209,12 +202,6 @@ function changeView(e){
         }
     })
     dynamicDisplayArea.classList.toggle("hidden");
-    if (!dynamicDisplayArea.classList.contains("hidden")){
-        // setTimeout(() => {
-        //     let len =  calendarElem.getBoundingClientRect().height;
-        //     dynamicDisplayArea.style.height = window.innerHeight - header.getBoundingClientRect().height - header.nextElementSibling.getBoundingClientRect().height*2 - footer.getBoundingClientRect().height - len + "px"
-        // },10)
-    }
 }
 
 // Populates expense data in the actively displayed month in the UI. 
@@ -1044,7 +1031,7 @@ function getFilter(e,dbArr,el){
                 contentBoxClone.addEventListener("touchend",(e)=>{
                     const target = e.target.nodeName === "DIV" ? e.target.parentElement : e.target.nodeName === "SPAN" ? e.target.parentElement.parentElement : e.target.nodeName === "P" ? e.target.parentElement.parentElement.parentElement : "" ;
                     const svgEL = target.lastElementChild.previousElementSibling;
-                    target.localName === "fieldset" ?  (createSwipeFunction({elm:target,nextFn,prevFn,remove:true},"legend","svg"),createSwipeFunction({elm:target,targetEL:svgEL,nextFn:nextmarkerFn,prevFn:prevmarkerFn,idFn: elem => elem.getAttribute("fill")==="black",remove:true})) : "" ;
+                    target.localName === "fieldset" ?  (createSwipeFunction({elm:target,nextFn,prevFn,once:true},"legend","svg"),createSwipeFunction({elm:target,targetEL:svgEL,nextFn:nextmarkerFn,prevFn:prevmarkerFn,idFn: elem => elem.getAttribute("fill")==="black",once:true})) : "" ;
                 })
                 let c1 = text.cloneNode("true");
                 c1.className = "text-black text-[1.5rem] max-w-25 text-nowrap overflow-hidden text-ellipsis"
@@ -1181,6 +1168,7 @@ function createSwipeFunction({elm,targetEL=elm,nextFn,prevFn,idFn=el => !el.clas
         let touchStartX = e.touches[0].clientX;
         let touchStartY = e.touches[0].clientY;
         elm.addEventListener("touchend",(z)=>{
+            z.stopPropagation();
             let touchEndX = z.changedTouches[0].clientX;
             let touchEndY = z.changedTouches[0].clientY;
             let swipeDistanceX = touchEndX-touchStartX;
